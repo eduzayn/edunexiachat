@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduChatConnect</title>
+    <meta
+      name="description"
+      content="Plataforma avançada de CRM multi-canal que usa tecnologias inteligentes para otimizar a gestão de leads, comunicação e experiência do usuário."
+    />
+    <!-- Patch para corrigir erros do DOM no React antes do carregamento do framework -->
+    <script>
+      (function () {
+        try {
+          // Patch para erro "NotFoundError: Failed to execute 'removeChild' on 'Node'"
+          if (
+            typeof Node !== "undefined" &&
+            Node.prototype &&
+            Node.prototype.removeChild
+          ) {
+            const originalRemoveChild = Node.prototype.removeChild;
+            Node.prototype.removeChild = function (child) {
+              try {
+                return originalRemoveChild.call(this, child);
+              } catch (error) {
+                if (
+                  typeof DOMException !== "undefined" &&
+                  error instanceof DOMException &&
+                  (error.name === "NotFoundError" ||
+                    (error.message && error.message.includes("not a child")))
+                ) {
+                  if (window && window.console) {
+                    console.warn(
+                      "Prevented NotFoundError in removeChild. This is a harmless error that has been patched."
+                    );
+                  }
+                  return child;
+                }
+                throw error;
+              }
+            };
+          }
+
+          // Patch para WebSockets em iframes
+          if (
+            typeof window !== "undefined" &&
+            window.parent !== window &&
+            window.WebSocket
+          ) {
+            const originalWebSocket = window.WebSocket;
+            window.WebSocket = function (url, protocols) {
+              let fixedUrl = url;
+              if (typeof url === "string") {
+                const currentLocation = window.location;
+                const wsPrefix =
+                  currentLocation.protocol === "https:" ? "wss:" : "ws:";
+                if (url.startsWith("/")) {
+                  fixedUrl = wsPrefix + "//" + currentLocation.host + url;
+                } else if (
+                  url.includes("localhost") ||
+                  url.includes("127.0.0.1")
+                ) {
+                  try {
+                    const urlObj = new URL(url, currentLocation.origin);
+                    fixedUrl =
+                      wsPrefix +
+                      "//" +
+                      currentLocation.host +
+                      urlObj.pathname +
+                      urlObj.search;
+                  } catch (e) {
+                    // fallback: use original url
+                  }
+                }
+              }
+              return new originalWebSocket(fixedUrl, protocols);
+            };
+            window.WebSocket.prototype = originalWebSocket.prototype;
+            window.WebSocket.CONNECTING = originalWebSocket.CONNECTING;
+            window.WebSocket.OPEN = originalWebSocket.OPEN;
+            window.WebSocket.CLOSING = originalWebSocket.CLOSING;
+            window.WebSocket.CLOSED = originalWebSocket.CLOSED;
+          }
+        } catch (e) {
+          if (window && window.console) {
+            console.error("Erro ao aplicar patches de compatibilidade:", e);
+          }
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript
+      >Você precisa habilitar o JavaScript para rodar esta aplicação.</noscript
+    >
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

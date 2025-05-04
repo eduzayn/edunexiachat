@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniConnect - Plataforma de Comunicação Omnichannel</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fc;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    header {
+      background-color: #5c6ac4;
+      color: white;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+    .content {
+      padding: 2rem 0;
+    }
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      color: #5c6ac4;
+      margin-top: 0;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature {
+      background-color: #f0f4ff;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .feature h3 {
+      margin-top: 0;
+      color: #5c6ac4;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>OmniConnect</h1>
+      <div class="subtitle">Plataforma de Comunicação Omnichannel</div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="content">
+      <div class="card">
+        <h2>Bem-vindo ao OmniConnect</h2>
+        <p>Uma plataforma completa para gerenciar comunicações em múltiplos canais.</p>
+        <p>Status: <strong>Operacional</strong></p>
+      </div>
+      
+      <h2>Principais Funcionalidades</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>Caixa de Entrada Unificada</h3>
+          <p>Centralize todas as conversas de diferentes canais em uma única interface.</p>
+        </div>
+        <div class="feature">
+          <h3>Integração Multi-canal</h3>
+          <p>Suporte para WhatsApp, Facebook, Instagram e mais canais em um só lugar.</p>
+        </div>
+        <div class="feature">
+          <h3>Gerenciamento de Contatos</h3>
+          <p>CRM integrado para acompanhar todo o histórico de interações com seus clientes.</p>
+        </div>
+        <div class="feature">
+          <h3>Processamento de Pagamentos</h3>
+          <p>Envie solicitações de pagamento e acompanhe o status diretamente nas conversas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="root"></div>
+  <script>
+    // Redirect to full application
+    window.location.href = '/app';
+  </script>
+</body>
+</html>
